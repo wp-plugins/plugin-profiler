@@ -2,7 +2,7 @@
 /*
 Plugin Name: Plugin Profiler
 Description: Profile your plugins.
-Version: 1.1
+Version: 1.1.1
 Author: Danny van Kooten
 Author URI: https://dannyvankooten.com
 License: GPL v3
