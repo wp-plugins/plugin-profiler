@@ -23,8 +23,10 @@ class PluginManager {
 		$this->step = ( isset( $_GET['step'] ) ) ? $_GET['step'] : '';
 		$this->profiled_plugin_slug = ( isset( $_GET['slug'] ) ) ? $_GET['slug'] : '';
 
+		// check if request has the correct signature
 		if( ! $this->is_valid_request() ) {
-			return;
+			http_response_code( 403 );
+			exit;
 		}
 
 		// add filter to disable or enable plugins
@@ -39,12 +41,12 @@ class PluginManager {
 	private function is_valid_request() {
 
 		// if secret is not given or empty, bail right away.
-		if( ! isset( $_GET['_pp_secret'] ) || '' === $_GET['_pp_secret'] ) {
+		if( ! isset( $_SERVER['HTTP_X_PLUGIN_PROFILER_SIGNATURE'] ) || '' === $_GET['HTTP_X_PLUGIN_PROFILER_SIGNATURE'] ) {
 			return false;
 		}
 
 		// get given secret
-		$given_secret = (string) $_GET['_pp_secret'];
+		$given_secret = (string) $_SERVER['HTTP_X_PLUGIN_PROFILER_SIGNATURE'];
 
 		// generate expected secret
 		$parameters = array(

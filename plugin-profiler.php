@@ -31,7 +31,7 @@ class Plugin {
 	/**
 	 * @const string
 	 */
-	const VERSION = '1.1';
+	const VERSION = '1.1.1';
 
 	/**
 	 * @const string
@@ -78,7 +78,8 @@ class Plugin {
 	 */
 	public function route() {
 
-		if( isset( $_GET['_pp_profiling'] ) && $_GET['_pp_profiling'] == 1 ) {
+
+		if( isset( $_SERVER['HTTP_X_PLUGIN_PROFILER_ACTION'] ) && 'profile' === $_SERVER['HTTP_X_PLUGIN_PROFILER_ACTION'] ) {
 			new PluginManager();
 		}
 
